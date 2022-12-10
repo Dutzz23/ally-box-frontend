@@ -1,0 +1,8 @@
+.userData-container{
+    height: 10rem;
+    background-color: #61dafb;
+    padding: 10px 20px;
+    color: #282c34;
+    display: flex;
+    align-items: center;
+}
