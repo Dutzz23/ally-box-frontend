@@ -1,30 +1,30 @@
 import axios from "axios";
 
 /**
- * Hello
+ * @desc URL that will be used for API connection is set as value to "proxy" in package.json
  */
 export default class ApiConfig {
-    /**
-     * @type {string}
-     * @desc URL that will be used for API connection
-     */
-    #baseUrl = 'localhost:30001';
-
     /**
      * @desc The GET method requests a representation of the specified resource. Requests using GET should only retrieve data.
      * @param {string} [url identifier to connect to the server]
      * @return {Object|Error} requested object or request/connection error
      */
-    getRequest(url) {
-        axios.get({
-            url: this.#baseUrl + url,
-            timeout: 1000
-        }).then((response) => {
-            return response;
-        }).catch((error) => {
-            console.log(error)
-            return null;
-        })
+    getRequest = async (url) => {
+        try {
+            return await axios.get(url )
+        } catch (error) {
+            console.log(Error(error))
+        }
+    }
+
+    getRequestById = async (url, id) => {
+        try {
+            return await axios.get(url + `/${id}`, {
+                timeout: 1000
+            })
+        } catch (error) {
+            console.log(Error(error))
+        }
     }
 
     /**
@@ -34,20 +34,17 @@ export default class ApiConfig {
      * @param {string} [id - resource's id to pe recognized by the server]
      * @return {status|Error} status of the request or request/connection error
      */
-    postRequest(url, data, id = null) {
-        if (id !== null) {
-            id = "/" + id;
+    postRequest = async (url, data, id = null) => {
+        try {
+            if (id !== null) {
+                id = "/" + id;
+            }
+            return await axios.post(url + id, {
+                data: data, timeout: 1000
+            })
+        } catch (error) {
+            console.log(Error(error));
         }
-        axios.post({
-            url: this.#baseUrl + url + id,
-            data: data,
-            timeout: 1000
-        }).then((response) => {
-            return response;
-        }).catch((error) => {
-            console.log(error)
-            return null;
-        })
     }
 
     /**
@@ -58,20 +55,17 @@ export default class ApiConfig {
      * @return {status|Error} status of the request or request/connection error
      */
 
-    putRequest(url, data, id = null) {
-        if (id !== null) {
-            id = "/" + id;
+    putRequest = async (url, data, id = null) => {
+        try {
+            if (id !== null) {
+                id = "/" + id;
+            }
+            return await axios.put(url + id, {
+                data: data, timeout: 1000
+            })
+        } catch (error) {
+            console.log(Error(error));
         }
-        axios.put({
-            url: this.#baseUrl + url + id,
-            data: data,
-            timeout: 1000
-        }).then((response) => {
-            return response;
-        }).catch((error) => {
-            console.log(error)
-            return null;
-        })
     }
 
     /**
@@ -81,20 +75,17 @@ export default class ApiConfig {
      * @param {string} [id - resource's id to pe recognized by the server]
      * @return {status|Error} status of the request or request/connection error
      */
-    patchRequest(url, data, id = null) {
-        if (id !== null) {
-            id = "/" + id;
+    patchRequest = async (url, data, id = null) => {
+        try {
+            if (id !== null) {
+                id = "/" + id;
+            }
+            return await axios.patch(url + id, {
+                data: data, timeout: 1000
+            })
+        } catch (error) {
+            console.log(Error(error));
         }
-        axios.patch({
-            url: this.#baseUrl + url + id,
-            data: data,
-            timeout: 1000
-        }).then((response) => {
-            return response;
-        }).catch((error) => {
-            console.log(error)
-            return null;
-        })
     }
 
     /**
@@ -103,18 +94,16 @@ export default class ApiConfig {
      * @param {string} [id - resource's id to pe recognized by the server]
      * @return {status|Error} status of the request or request/connection error
      */
-    deleteRequest(url, id = null) {
-        if (id !== null) {
-            id = "/" + id;
+    deleteRequest = async (url, id = null) => {
+        try {
+            if (id !== null) {
+                id = "/" + id;
+            }
+            return await axios.delete(url + id, {
+                timeout: 1000
+            })
+        } catch (error) {
+            console.log(error);
         }
-        axios.delete({
-            url: this.#baseUrl + url,
-            timeout: 1000
-        }).then((response) => {
-            return response;
-        }).catch((error) => {
-            console.log(error)
-            return null;
-        })
     }
 }
